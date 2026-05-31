@@ -11,6 +11,10 @@ A set of Skills that turn your startup profile into a full VC fundraising workfl
 Run commands in this order for a complete fundraising campaign:
 
 ```bash
+
+# 0. Create your STARTUP_PROFILE.md
+# Use the example file with your information. 
+
 # 1. Build the strategy
 /vcraise
 
