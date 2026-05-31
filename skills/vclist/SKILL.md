@@ -117,6 +117,14 @@ _Generated: [date] | Stage: [stage] | Ask: $[amount]_
 
 ---
 
+### After Producing `vclist.md` — Poser Pre-Filter
+
+Once the list is written, tell the user to run `/vcposer <fund name>` on every Tier 1 fund **before** committing to a full `/vcmatch` analysis:
+
+> "Before running `/vcmatch` on any of these funds, run `/vcposer <fund name>` to verify the fund is actively deploying capital. Funds scoring below 40 should be dropped from the pipeline. Funds scoring 40–59 should be treated as Tier 2 (warm intro required) regardless of their thesis fit. Only proceed to `/vcmatch` for funds scoring 60 or above."
+
+---
+
 ## Output Rules
 
 - Every fund must include a named partner to target — not just the firm

@@ -6,6 +6,108 @@ A set of Skills that turn your startup profile into a full VC fundraising workfl
 
 ---
 
+## Full Fundraising Workflow
+
+Run commands in this order for a complete fundraising campaign:
+
+```bash
+# 1. Build the strategy
+/vcraise
+
+# 2. Research the landscape
+/vclist
+
+# 3. For each Tier 1 fund — legitimacy check first:
+/vcposer <fund name>              # Is this fund real and active? Drop if score < 40.
+
+# 4. For each fund that passes vcposer (score 60+):
+/vcmatch <fund name>              # Does their mandate fit your startup?
+/vcperks <fund name>              # What do they offer beyond the check?
+
+# 5. Stress-test your pitch against the funds you're pursuing:
+/vcdevil
+
+# 6. For each fund with a vcmatch Pursue or Warm Up verdict:
+/vcpartner <fund> <partner name>
+/vcintro vcmatch-<fund>.md        # send outreach
+/vclp vcmatch-<fund>.md           # attach the one-pager
+
+# 7. When a meeting is booked:
+/vcprep vcmatch-<fund>.md
+```
+
+**File naming convention:**
+
+| File | Purpose |
+|------|---------|
+| `STARTUP_PROFILE.md` | Your startup data — update as traction grows |
+| `vclist.md` | Master fund pipeline |
+| `vcposer-<fund>.md` | Poser check — fund vitality, thesis authenticity, lead capacity |
+| `vcmatch-<fund>.md` | Deep analysis per fund |
+| `vcperks-<fund>.md` | Perks breakdown — value beyond capital, scored by relevance |
+| `vcpartner-<fund>-<name>.md` | Partner brief |
+| `vcintro-<fund>.md` | Outreach drafts |
+| `vclp-<fund>.md` | Fund-specific one-pager |
+| `vcprep-<fund>.md` | Meeting prep |
+| `vcraise.md` | Fundraising strategy |
+| `vcdevil.md` | Adversarial stress-test — 10 lethal questions |
+
+---
+
+## Installation
+
+These commands are available as the `vcupid` Claude Code plugin. To install globally (works in any project directory):
+
+**1. Clone the plugin:**
+```bash
+git clone <repo-url> ~/dev/vcupid
+```
+
+**2. Run the install script:**
+```bash
+cd ~/dev/vcupid && bash install.sh
+```
+
+The script registers the plugin in `~/.claude/plugins/installed_plugins.json` and enables it in `~/.claude/settings.json`. It is idempotent — safe to re-run after updates.
+
+**3. Restart Claude Code.** All `/vc*` commands will be available in any directory that contains a `STARTUP_PROFILE.md`.
+
+<details>
+<summary>Manual installation</summary>
+
+**Register in `~/.claude/plugins/installed_plugins.json`:**
+```json
+"vcupid@local": [{
+  "scope": "user",
+  "installPath": "/home/<you>/dev/vcupid",
+  "version": "1.0.0",
+  "installedAt": "<ISO timestamp>",
+  "lastUpdated": "<ISO timestamp>"
+}]
+```
+
+**Enable in `~/.claude/settings.json`:**
+```json
+"enabledPlugins": {
+  "vcupid@local": true
+}
+```
+
+</details>
+
+---
+
+## Tips
+
+- **Keep `STARTUP_PROFILE.md` current.** Every new traction milestone (signed LOI, new partnership, first revenue) changes what funds you can approach and what you can say. Update it and re-run `/vcraise` monthly.
+- **Run `/vcmatch` before spending time on outreach.** A 40/100 fit score is a no-go — don't write the email.
+- **Use Variant B (`/vcintro`) over cold email whenever a warm path exists.** A forwarded intro converts at 5–10x the rate of cold outreach.
+- **The vcprep is for rehearsal, not for the room.** Print it, rehearse it, then leave it behind — the meeting is a conversation, not a recital.
+- **Update the plugin with new skills** by adding `SKILL.md` files to `skills/<name>/` and bumping `version` in `.claude-plugin/plugin.json`.
+
+---
+
+
 ## Prerequisites
 
 All commands read `STARTUP_PROFILE.md` from your current working directory. **Create this file before running any command.**
@@ -112,6 +214,38 @@ Run this before `/vcmatch` to know which funds are worth the deep analysis.
 
 ---
 
+### `/vcposer` — VC Poser Detector
+
+Pre-filter funds from your pipeline before committing to a full match analysis. Runs 8 evidence-based checks on whether a fund is actually active and writing checks — independent of whether their thesis fits your startup.
+
+```
+/vcposer <VC Fund Name>
+```
+
+**Example:** `/vcposer "Slow Ventures"` or `/vcposer a16z`  
+**Reads:** `STARTUP_PROFILE.md` (for stage/sector calibration)  
+**Saves:** `vcposer-<fund>.md`
+
+**Output — Poser Score (0–100) across 8 checks:**
+- **Fund Vitality** — Last investment date. >18 months silent = zombie risk.
+- **Fund Health** — Active fund with dry powder? Key partner departures?
+- **Thesis Authenticity** — Does their portfolio actually match their stated sector thesis?
+- **Lead vs. Follow** — Evidence of leading rounds, not just co-investing.
+- **Stage Honesty** — Stated stage vs. actual entry stage of recent investments.
+- **Check Size Reality** — Stated range vs. observable deal sizes.
+- **Signal-to-Check Ratio** — Conference/content volume vs. actual new deals.
+- **Founder Sentiment** — Public feedback patterns — ghosting, slow decisions, reneging.
+
+**Verdict tiers:**
+- **Legit (80–100):** Active fund, real checks. Proceed to `/vcmatch`.
+- **Probable (60–79):** Yellow flags — prioritize if fit is strong, clarify open questions.
+- **Watch List (40–59):** Material poser signals. De-prioritize unless a warm intro exists.
+- **Likely Poser (0–39):** Don't waste cycles. Move to the next fund.
+
+> **vcposer ≠ vcmatch.** Poser Score answers "is this fund real and active?" Vcmatch answers "does their mandate fit our startup?" You need both. A fund can be fully legit but wrong for your stage — and a fund can claim a perfect thesis but be a zombie. Run `/vcposer` first, then `/vcmatch` only for funds that score 60+.
+
+---
+
 ### `/vcmatch` — Fund Fit Analysis
 
 Deep research on a single fund against your startup profile. Scores the match and identifies exactly how to approach them.
@@ -134,6 +268,40 @@ Deep research on a single fund against your startup profile. Scores the match an
 7. Recommended Action — Pursue / Warm Up First / No-Go with rationale
 
 Run `/vcmatch` before `/vcpartner`, `/vcintro`, `/vclp`, or `/vcprep`.
+
+---
+
+### `/vcperks` — Fund Perks Researcher
+
+Understand what a fund delivers beyond the check before you sign. Researches the full value a fund delivers beyond the check — credits and services, but also brand signal, strategic expertise, media reach, policy access, and follow-on capital pathway — scored by relevance to your startup.
+
+```
+/vcperks <VC Fund Name>
+```
+
+**Example:** `/vcperks a16z` or `/vcperks "First Round Capital"`  
+**Reads:** `STARTUP_PROFILE.md` (for stage/sector calibration)  
+**Saves:** `vcperks-<fund>.md`
+
+**Part A — Financial Value** (dollar estimates, [Confirmed]/[Reported] labels):
+- **Cloud & Infrastructure** — AWS/GCP/Azure credits, API platform discounts
+- **Legal & Finance** — discounted counsel, accounting, cap table tools (Carta, Pulley)
+- **Talent & Recruiting** — job boards, ATS discounts, executive recruiting relationships
+- **Go-to-Market** — PR/comms support, CRM and sales tool discounts
+- **Network & Introductions** — portfolio co. intros, LP relationships, co-investor paths
+- **Operational Support** — office space, co-working, founder summits
+- **Formal Programs** — structured accelerator tracks, office hours, mentorship
+
+**Part B — Non-Financial Value** (impact ratings, qualitative assessment):
+- **Brand & Signal Value** — what the fund's name does for customer credibility, talent attraction, and future round momentum
+- **Strategic Guidance & Pattern Recognition** — named GP expertise, comparable investments they've led, operating partners
+- **Content & Media Amplification** — publishing access, newsletter reach, event speaking, social amplification
+- **Policy & Regulatory Access** — government relations team, compliance guidance, agency relationships
+- **Follow-on Capital Pathway** — pro rata appetite, reserve pool, bridge capacity, Series A syndication partners, fund lifecycle
+
+Closes with a **Gaps** section (benchmarked against named peer funds) and a **Questions to Ask the Fund Directly** section from unresolved research.
+
+> For most seed-stage companies, the non-financial value — brand signal, strategic depth, follow-on pathway — is worth more over a 5-year relationship than the credits. `/vcperks` covers both.
 
 ---
 
@@ -254,93 +422,3 @@ Run this before any outreach. The questions you can't answer in 30 seconds are t
 
 ---
 
-## Full Fundraising Workflow
-
-Run commands in this order for a complete fundraising campaign:
-
-```bash
-# 1. Build the strategy
-/vcraise
-
-# 2. Stress-test before any outreach
-/vcdevil
-
-# 3. Research the landscape
-/vclist
-
-# 4. For each Tier 1 fund:
-/vcmatch <fund name>
-/vcpartner <fund> <partner name>
-/vcintro vcmatch-<fund>.md        # send outreach
-/vclp vcmatch-<fund>.md           # attach the one-pager
-
-# 5. When a meeting is booked:
-/vcprep vcmatch-<fund>.md
-```
-
-**File naming convention:**
-
-| File | Purpose |
-|------|---------|
-| `STARTUP_PROFILE.md` | Your startup data — update as traction grows |
-| `vclist.md` | Master fund pipeline |
-| `vcmatch-<fund>.md` | Deep analysis per fund |
-| `vcpartner-<fund>-<name>.md` | Partner brief |
-| `vcintro-<fund>.md` | Outreach drafts |
-| `vclp-<fund>.md` | Fund-specific one-pager |
-| `vcprep-<fund>.md` | Meeting prep |
-| `vcraise.md` | Fundraising strategy |
-| `vcdevil.md` | Adversarial stress-test — 10 lethal questions |
-
----
-
-## Installation
-
-These commands are available as the `vcupid` Claude Code plugin. To install globally (works in any project directory):
-
-**1. Clone the plugin:**
-```bash
-git clone <repo-url> ~/dev/vcupid
-```
-
-**2. Run the install script:**
-```bash
-cd ~/dev/vcupid && bash install.sh
-```
-
-The script registers the plugin in `~/.claude/plugins/installed_plugins.json` and enables it in `~/.claude/settings.json`. It is idempotent — safe to re-run after updates.
-
-**3. Restart Claude Code.** All `/vc*` commands will be available in any directory that contains a `STARTUP_PROFILE.md`.
-
-<details>
-<summary>Manual installation</summary>
-
-**Register in `~/.claude/plugins/installed_plugins.json`:**
-```json
-"vcupid@local": [{
-  "scope": "user",
-  "installPath": "/home/<you>/dev/vcupid",
-  "version": "1.0.0",
-  "installedAt": "<ISO timestamp>",
-  "lastUpdated": "<ISO timestamp>"
-}]
-```
-
-**Enable in `~/.claude/settings.json`:**
-```json
-"enabledPlugins": {
-  "vcupid@local": true
-}
-```
-
-</details>
-
----
-
-## Tips
-
-- **Keep `STARTUP_PROFILE.md` current.** Every new traction milestone (signed LOI, new partnership, first revenue) changes what funds you can approach and what you can say. Update it and re-run `/vcraise` monthly.
-- **Run `/vcmatch` before spending time on outreach.** A 40/100 fit score is a no-go — don't write the email.
-- **Use Variant B (`/vcintro`) over cold email whenever a warm path exists.** A forwarded intro converts at 5–10x the rate of cold outreach.
-- **The vcprep is for rehearsal, not for the room.** Print it, rehearse it, then leave it behind — the meeting is a conversation, not a recital.
-- **Update the plugin with new skills** by adding `SKILL.md` files to `skills/<name>/` and bumping `version` in `.claude-plugin/plugin.json`.

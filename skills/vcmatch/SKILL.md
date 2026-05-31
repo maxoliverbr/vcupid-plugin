@@ -35,6 +35,12 @@ If `STARTUP_PROFILE.md` does not exist, stop and tell the user to create it firs
 
 ### Step 2 — Research the VC Fund
 
+**Poser pre-check:** Before beginning research, look for a `vcposer-<fund-slug>.md` file in the current working directory (derive the slug the same way as the output filename). If it exists:
+- Read the Poser Score and verdict.
+- If score is **below 40**: stop and tell the user — "This fund scored [X]/100 on the poser check — the red flags suggest this fund may not be actively deploying capital. Investigate those findings or re-run `/vcposer <fund>` if conditions have changed before spending time on a full match analysis."
+- If score is **40–59**: continue with research but add a warning banner at the top of the output report: `⚠️ Poser Score: [X]/100 (Watch List) — this fund shows legitimacy concerns. De-prioritize unless a warm intro exists.`
+- If score is **60+** or no vcposer file exists: proceed normally.
+
 Use WebSearch (and WebFetch on key pages like the fund's website, team pages, and portfolio pages) to gather:
 
 - Investment thesis and mandate (verbatim quotes where possible)

@@ -19,12 +19,13 @@ Example: `/vcprep vcmatch-a16z.md`
 
 ### Step 1 — Load Context
 
-Read two files:
+Read the following files:
 
 1. `STARTUP_PROFILE.md` from the current working directory — extract company, founders, problem, solution, traction, business model, stage, team.
 2. The vcmatch report file passed as the argument — extract: Fund Overview, Mandate Alignment verdict, Fit Score rationale, Optimal Pitch Angle (opening hook + target partner + what to lead/avoid), Red Flags, and Diligence Questions.
+3. `vcperks-<fund-slug>.md` — if it exists in the current directory, load the Top 3 Perks section. These are used in The Ask segment to articulate value beyond capital when the partner asks "why us specifically?"
 
-If either file is missing, stop and tell the user which one is absent.
+If files 1 or 2 are missing, stop and tell the user which one is absent. File 3 is optional — if absent, skip the perks references.
 
 ### Step 2 — Produce the Meeting Prep
 
@@ -95,6 +96,7 @@ Based on the startup profile stage and the fund's typical check size from the vc
 - Exact amount to ask for (be specific, not a range)
 - What milestone this capital unlocks (one crisp sentence)
 - What the next 90 days look like if they say yes
+- **Value beyond capital:** If a vcperks report was loaded, name the 1–2 most relevant perks for this startup and note them here — founders should be able to say "beyond the capital, we're specifically interested in [X] because [startup-specific reason]" when the partner asks why them. Keep it to one sentence.
 - The leave-behind: one thing to send them within 24 hours of the meeting
 
 ---

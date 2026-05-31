@@ -25,6 +25,7 @@ Read the following files from the current working directory (load all that exist
 2. `vclist.md` — if exists, use for the fund pipeline and tier breakdown
 3. `vcmatch-*.md` — load all vcmatch reports found; use for sequencing and milestone mapping
 4. `vcprep-*.md` — if any exist, note which funds are meeting-ready
+5. `vcposer-*.md` — if any exist, extract the Poser Score and verdict for each fund
 
 ### Step 2 — Produce `vcraise.md`
 
@@ -92,6 +93,8 @@ From today ([current month]) through close target. Flag hard dependencies.
 ## Section 6: Risk Factors & Contingencies
 
 For each risk: what it is, probability (high/medium/low), and the specific fallback.
+
+If any `vcposer-*.md` files were loaded, add a row for each fund scoring below 60: a Watch List fund in your Tier 1 pipeline is a pipeline risk — slow decisions, possible zombie capital, or follow-only capacity. Flag it with a parallel-track contingency.
 
 | Risk | Probability | Contingency |
 |------|-------------|-------------|
