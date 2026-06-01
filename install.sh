@@ -2,10 +2,31 @@
 set -euo pipefail
 
 PLUGIN_ID="vcupid@local"
-PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SETTINGS_JSON="$HOME/.claude/settings.json"
 INSTALLED_JSON="$HOME/.claude/plugins/installed_plugins.json"
 NOW="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+
+# Detect: local clone (has skills/ next to script) vs piped from URL
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-/dev/stdin}")" 2>/dev/null && pwd)" || SCRIPT_DIR=""
+
+if [[ -n "$SCRIPT_DIR" ]] && [[ -d "$SCRIPT_DIR/skills" ]]; then
+  PLUGIN_DIR="$SCRIPT_DIR"
+else
+  PLUGIN_DIR="$HOME/.claude/plugins/vcupid"
+  mkdir -p "$(dirname "$PLUGIN_DIR")"
+  if [[ -d "$PLUGIN_DIR/.git" ]]; then
+    echo "Updating VCupid plugin..."
+    git -C "$PLUGIN_DIR" pull --quiet
+  else
+    echo "Downloading VCupid plugin..."
+    git clone --quiet https://github.com/maxoliverbr/vcupid-plugin.git "$PLUGIN_DIR"
+  fi
+fi
+
+# Bootstrap config files for fresh Claude Code installs
+mkdir -p "$HOME/.claude/plugins"
+[[ -f "$INSTALLED_JSON" ]] || echo '{"plugins":{}}' > "$INSTALLED_JSON"
+[[ -f "$SETTINGS_JSON" ]] || echo '{}' > "$SETTINGS_JSON"
 
 # Create .claude-plugin/plugin.json if missing
 mkdir -p "$PLUGIN_DIR/.claude-plugin"

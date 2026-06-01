@@ -60,21 +60,27 @@ Run commands in this order for a complete fundraising campaign:
 
 ## Installation
 
-These commands are available as the `vcupid` Claude Code plugin. To install globally (works in any project directory):
+These commands are available as the `vcupid` Claude Code plugin. Install with a single command — works in Claude Code web or CLI:
 
-**1. Clone the plugin:**
 ```bash
-git clone <repo-url> ~/dev/vcupid
+curl -fsSL https://raw.githubusercontent.com/maxoliverbr/vcupid-plugin/main/install.sh | bash
 ```
 
-**2. Run the install script:**
+The script clones the plugin to `~/.claude/plugins/vcupid/`, registers it in `~/.claude/plugins/installed_plugins.json`, and enables it in `~/.claude/settings.json`. It is idempotent — safe to re-run to update.
+
+**Restart Claude Code.** All `/vc*` commands will be available in any directory that contains a `STARTUP_PROFILE.md`.
+
+<details>
+<summary>Local development install</summary>
+
+If you've cloned the repo locally, you can install from the clone directly:
+
 ```bash
-cd ~/dev/vcupid && bash install.sh
+cd ~/dev/vcupid-plugin && bash install.sh
 ```
 
-The script registers the plugin in `~/.claude/plugins/installed_plugins.json` and enables it in `~/.claude/settings.json`. It is idempotent — safe to re-run after updates.
-
-**3. Restart Claude Code.** All `/vc*` commands will be available in any directory that contains a `STARTUP_PROFILE.md`.
+This registers the local clone path so edits to skill files take effect immediately without re-running the installer.
+</details>
 
 <details>
 <summary>Manual installation</summary>
