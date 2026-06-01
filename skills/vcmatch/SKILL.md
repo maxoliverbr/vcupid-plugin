@@ -1,6 +1,13 @@
 ---
 name: vcmatch
 description: "Match the active startup profile against a VC fund. Usage: /vcmatch <VC Fund Name>. Reads STARTUP_PROFILE.md, researches the fund, and produces a structured VC Match Report with fit score, mandate alignment, pitch angle, red flags, diligence questions, and a pursue/no-go recommendation."
+license: MIT
+compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
+allowed-tools: WebSearch WebFetch Read Write
+metadata:
+  author: 3Flux
+  version: "1.0"
+  workflow-step: "4 — run after /vcposer scores 60+"
 ---
 
 # /vcmatch — VC Match Analysis

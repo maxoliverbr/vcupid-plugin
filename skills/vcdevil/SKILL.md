@@ -1,6 +1,12 @@
 ---
 name: vcdevil
 description: "Stress-test your startup with the 10 hardest VC questions. Usage: /vcdevil. Reads STARTUP_PROFILE.md and produces a brutal adversarial interrogation: each question, why it's lethal, and a rebuttal framework. Saves to vcdevil.md."
+license: MIT
+allowed-tools: Read Write
+metadata:
+  author: 3Flux
+  version: "1.0"
+  workflow-step: "6 — run to stress-test your pitch before meetings"
 ---
 
 # /vcdevil — The Startup Destroyer

@@ -1,6 +1,12 @@
 ---
 name: vclp
 description: "Generate a fund-specific one-page executive summary from a vcmatch report. Usage: /vclp <vcmatch-report.md>. Reads STARTUP_PROFILE.md and the vcmatch report, then produces a one-pager written entirely in the fund's language and framed around their thesis. Saves to vclp-<fund>.md."
+license: MIT
+allowed-tools: Read Write
+metadata:
+  author: 3Flux
+  version: "1.0"
+  workflow-step: "9 — run after /vcmatch to produce a fund-specific one-pager"
 ---
 
 # /vclp — Fund-Specific One-Pager

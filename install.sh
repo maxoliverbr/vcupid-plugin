@@ -72,5 +72,14 @@ with open(path, "w") as f:
     f.write("\n")
 PYEOF
 
+# Validate skills if skills-ref is available
+if command -v skills-ref &>/dev/null; then
+  echo ""
+  echo "Validating skills..."
+  for skill_dir in "$PLUGIN_DIR/skills/*/"; do
+    skills-ref validate "$skill_dir" && echo "  OK: $(basename "$skill_dir")"
+  done
+fi
+
 echo ""
 echo "VCupid Plugin installed. Restart Claude Code to activate the /vc* commands."

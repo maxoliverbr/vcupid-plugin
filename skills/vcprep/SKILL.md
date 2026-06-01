@@ -1,6 +1,12 @@
 ---
 name: vcprep
 description: "Prepare a 15-minute VC pitch meeting from the active startup profile and a vcmatch report. Usage: /vcprep <vcmatch-report.md>. Produces a complete meeting prep: timed agenda, opening hook, slide-by-slide talking points, preemptive answers to the fund's likely diligence questions, red flag rebuttals, and a clear ask."
+license: MIT
+allowed-tools: Read Write
+metadata:
+  author: 3Flux
+  version: "1.0"
+  workflow-step: "10 — run after /vcmatch when a meeting is booked"
 ---
 
 # /vcprep — 15-Minute VC Pitch Meeting Prep

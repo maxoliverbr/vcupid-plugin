@@ -1,6 +1,13 @@
 ---
 name: vcpartner
 description: "Deep profile on a specific VC partner. Usage: /vcpartner <fund> <partner name>. Researches the partner's background, personal thesis, portfolio companies they've led, public writing, and speaking topics. Produces conversation starters and a fit assessment against the active startup profile. Saves to vcpartner-<fund>-<lastname>.md."
+license: MIT
+compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
+allowed-tools: WebSearch WebFetch Read Write
+metadata:
+  author: 3Flux
+  version: "1.0"
+  workflow-step: "7 — deep-profile a specific partner before a meeting"
 ---
 
 # /vcpartner — VC Partner Deep Profile

@@ -1,6 +1,13 @@
 ---
 name: vclist
 description: "Build a prioritized VC target list from the active startup profile. Usage: /vclist. Reads STARTUP_PROFILE.md, researches the VC landscape, and produces a tiered list of 15–20 funds ranked by fit with rationale and suggested contact angle. Saves to vclist.md."
+license: MIT
+compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
+allowed-tools: WebSearch WebFetch Read Write
+metadata:
+  author: 3Flux
+  version: "1.0"
+  workflow-step: "2 — run after /vcraise to research the landscape"
 ---
 
 # /vclist — VC Target List Builder
