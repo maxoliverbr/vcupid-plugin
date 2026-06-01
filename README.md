@@ -113,7 +113,7 @@ This registers the local clone path so edits to skill files take effect immediat
 - **Run `/vcmatch` before spending time on outreach.** A 40/100 fit score is a no-go — don't write the email.
 - **Use Variant B (`/vcintro`) over cold email whenever a warm path exists.** A forwarded intro converts at 5–10x the rate of cold outreach.
 - **The vcprep is for rehearsal, not for the room.** Print it, rehearse it, then leave it behind — the meeting is a conversation, not a recital.
-- **Update the plugin with new skills** by adding `SKILL.md` files to `skills/<name>/` and bumping `version` in `.claude-plugin/plugin.json`.
+- **Want to add or change a skill?** See [Contributing](#contributing) below.
 
 ---
 
@@ -429,6 +429,76 @@ Before you pitch anyone, get destroyed first. A cocky, arrogant VC partner who's
 - **What a real answer looks like** — the framework for a rebuttal that shuts him up
 
 Run this before any outreach. The questions you can't answer in 30 seconds are the gaps to close first.
+
+---
+
+## Contributing
+
+Contributions are welcome — bug fixes, clearer skill instructions, new commands, and documentation improvements.
+
+### Other platforms
+
+We seek help testing the skills in other tools (Opencode, Codex, Cursor...) and llms. 
+
+### Development setup
+
+1. Fork and clone the repo:
+   ```bash
+   git clone https://github.com/<your-username>/vcupid-plugin.git
+   cd vcupid-plugin
+   ```
+2. Install from your local clone (registers this path with Claude Code):
+   ```bash
+   bash install.sh
+   ```
+3. **Restart Claude Code.** Skill changes in `skills/` are picked up from the registered install path; you do not need to re-run the installer after every edit.
+
+To validate skill structure (optional, requires [skills-ref](https://github.com/agentskills/skills-ref)):
+
+```bash
+skills-ref validate skills/vcmatch/
+```
+
+`install.sh` runs the same validation automatically when `skills-ref` is on your `PATH`.
+
+### Repository layout
+
+| Path | Purpose |
+|------|---------|
+| `skills/<name>/SKILL.md` | Skill definition — frontmatter, invocation, execution steps, output rules |
+| `skills/<name>/references/` | Optional templates (e.g. `output-format.md`) linked from the skill |
+| `assets/` | Shared assets (logo, `STARTUP_PROFILE_TEMPLATE.md`) |
+| `.claude-plugin/plugin.json` | Plugin metadata for Claude Code |
+| `install.sh` | Registers the plugin in `~/.claude/plugins/` and enables it in settings |
+
+Claude Code discovers skills from every `skills/*/SKILL.md` file. There is no separate manifest to update when you add a folder.
+
+### Editing an existing skill
+
+1. Open `skills/<name>/SKILL.md`.
+2. Keep the YAML frontmatter consistent with sibling skills (`name`, `description`, `license`, `compatibility`, `allowed-tools`, `metadata`).
+3. If the skill references an output template, update `skills/<name>/references/output-format.md` in the same change when the on-disk report format changes.
+4. Smoke-test in Claude Code: create a `STARTUP_PROFILE.md` in a test directory, run the `/vc*` command, and confirm the saved markdown matches the skill’s rules.
+
+### Adding a new skill
+
+1. Create `skills/<command-name>/SKILL.md` (command name should match the folder, e.g. `skills/vcmatch/` → `/vcmatch`).
+2. Follow the structure used by existing skills:
+   - Frontmatter with a one-line `description` that includes usage (`Usage: /vcfoo ...`)
+   - **Invocation** — syntax and examples
+   - **Execution Steps** — ordered steps the agent must follow
+   - **Output Format** / **Output Rules** — what to write and where to save (`vcfoo-<fund>.md`, etc.)
+3. Add optional `references/output-format.md` if the report has a fixed section layout.
+4. Document the command in this README under [Commands](#commands) and, if it fits the fundraising flow, in [Full Fundraising Workflow](#full-fundraising-workflow).
+5. Run `skills-ref validate skills/<command-name>/` if available.
+
+### Pull requests
+
+1. Branch from `main` with a focused change (one skill or one doc area per PR when possible).
+2. Describe what you changed and how you tested it (which `/vc*` command you ran, and whether output looked correct).
+3. Open a PR against `main` on GitHub. Issues and ideas are also welcome via [GitHub Issues](https://github.com/maxoliverbr/vcupid-plugin/issues).
+
+By contributing, you agree that your contributions are licensed under the same terms as the project ([LICENSE](./LICENSE)).
 
 ---
 
