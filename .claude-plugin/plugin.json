@@ -1,4 +1,8 @@
 {
   "name": "vcupid",
-  "description": "AI fundraising toolkit: VC pipeline, fund matching, partner profiling, outreach, and pitch prep"
+  "description": "AI fundraising toolkit: VC pipeline, fund matching, partner profiling, outreach, and pitch prep",
+  "author": {
+    "name": "3Flux",
+    "email": "max.oliver@3flux.com"
+  }
 }
