@@ -1,12 +1,12 @@
 ---
 name: vcmatch
-description: "Match the active startup profile against a VC fund. Usage: /vcmatch <VC Fund Name>. Reads STARTUP_PROFILE.md, researches the fund, and produces a structured VC Match Report with fit score, mandate alignment, pitch angle, red flags, diligence questions, and a pursue/no-go recommendation."
+description: "Match the active startup profile against a VC fund. Usage: /vcmatch <VC Fund Name>. Reads STARTUP_PROFILE.md, researches the fund, and produces a structured VC Match Report with firm snapshot, thesis focus, key people, dimensional fit scoring, positive case, risks, pitch approach, and a verdict table."
 license: MIT
 compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
 allowed-tools: WebSearch WebFetch Read Write
 metadata:
   author: 3Flux
-  version: "1.0"
+  version: "2.0"
   workflow-step: "4 — run after /vcposer scores 60+"
 ---
 
@@ -20,7 +20,7 @@ Match the active startup profile against a VC fund and produce a structured, sco
 /vcmatch <VC Fund Name>
 ```
 
-Example: `/vcmatch a16z` or `/vcmatch Lowercarbon Capital`
+Example: `/vcmatch a16z` or `/vcmatch Y Combinator`
 
 ## Execution Steps
 
@@ -31,12 +31,17 @@ When invoked, execute these three steps in order.
 Read `STARTUP_PROFILE.md` from the current working directory. Extract and hold in context:
 
 - Company name and one-liner
+- CEO name and profile
+- CTO name and profile
 - Core problem and solution
 - Target customer and market size
+- Key value proposition
 - Business model and pricing
 - Current stage, traction, and milestones
 - Team backgrounds and relevant credentials
 - Geography and founding date
+- Referral
+
 
 If `STARTUP_PROFILE.md` does not exist, stop and tell the user to create it first.
 
@@ -51,75 +56,91 @@ If `STARTUP_PROFILE.md` does not exist, stop and tell the user to create it firs
 Use WebSearch (and WebFetch on key pages like the fund's website, team pages, and portfolio pages) to gather:
 
 - Investment thesis and mandate (verbatim quotes where possible)
+- Program model (accelerator, seed fund, multi-stage, etc.) and any mandatory time commitments
 - Stage focus (pre-seed / seed / Series A / growth)
 - Sector and vertical focus (deep tech, climate, enterprise SaaS, etc.)
 - Geography preference
-- Typical check size and fund size
-- Portfolio companies — especially recent investments in the last 2 years
+- Deal terms: standard equity %, check size structure, SAFE vs. priced round
+- Fund/batch size and cadence
+- Portfolio companies — especially sector analogs and recent investments in the last 2 years
+- Recent batch or portfolio composition (thematic trends, % AI, notable cluster sectors)
 - Key partners, their backgrounds, and their stated focus areas
 - Any thesis essays, blog posts, or public statements about what they invest in
+- Application/referral dynamics (open applications, referral advantage, partner assignment)
 - Any known portfolio conflicts or "too close to portfolio" sectors
 
 Search queries to use:
 1. `"<Fund Name>" investment thesis portfolio stage`
-2. `"<Fund Name>" recent investments 2024 2025`
+2. `"<Fund Name>" recent investments 2024 2025 2026`
 3. `"<Fund Name>" partners focus sectors check size`
 4. `site:<fund-website> thesis` (if website is known)
 
 ### Step 3 — Produce the VC Match Report
 
-Output a structured markdown report with exactly these seven sections:
+Output a structured markdown report with exactly these eight sections:
 
 ---
 
-## VC Match Report: [Fund Name] x [Startup Name]
+## VC Match Report: [Fund Name] × [Startup Name]
 
-### 1. Fund Overview
-Thesis, stage focus, sector/vertical, check size, fund size, geography, key partners (with their focus areas). Keep to 5-8 bullets.
+### Firm Snapshot
 
-### 2. Mandate Alignment
-Line-by-line comparison of the fund's stated criteria against the startup's profile. Use a table or bullet pairs:
-- Stage match: fund's stage vs startup's current stage
-- Sector match: fund's verticals vs startup's category
-- Business model match: fund preferences vs startup's pricing model
-- Geography match
-- Team match: fund's team preferences vs startup's credentials
-- Traction match: fund's typical entry bar vs startup's current milestones
+Markdown table with these fields: Founded, Model, CEO, Key GPs, Standard Deal, Fund/Batch Size, Notable Portfolio/Alumni. Keep each cell concise.
 
-### 3. Fit Score
-**Score: XX/100**
+### Investment Thesis & Current Focus
 
-Break down the score across: sector fit, stage fit, team fit, traction fit, thesis alignment. Provide 2-3 sentences of rationale. Be honest — a 45/100 with clear reasoning is more useful than an inflated score.
+Table with columns **Theme** | **Signal**. List the fund's active investment themes as rows — distinguish de facto focus (what they're actually funding right now) from stated mandate. Include verbatim partner quotes where available. Note any thesis drift from prior years.
 
-### 4. Optimal Pitch Angle
-What to lead with when pitching THIS specific fund. Identify:
-- Which element of the startup maps best to this fund's thesis
-- Which partner to target (by name and focus) and why
-- The 1-2 sentence opening hook tailored to this fund's language
-- What NOT to lead with (points that may not resonate)
+### Key People
 
-### 5. Red Flags
-Honest assessment of mandate mismatches, portfolio conflicts, or thesis gaps. Flag:
-- Stage mismatch (too early / too late)
-- Sector overlap with existing portfolio
-- Missing proof points this fund typically requires
-- Geographic or structural concerns
+Table with columns **Person** | **Role** | **Relevance to [Startup Name]**. List 3–6 decision-makers or relevant partners. After the table, add a plain-text note on HOW to approach (referral required? open application? partner assignment process?). Do not fabricate people or titles — caveat any uncertain data.
 
-### 6. Diligence Questions to Prepare
-List 5-8 questions this fund is likely to ask, based on their thesis and portfolio pattern. Make them specific, not generic.
+### Fit Assessment
 
-### 7. Recommended Action
-One of three verdicts with a 2-3 sentence rationale:
+**Overall Fit Score: X/10**
 
-- **Pursue** — strong fit, prioritize outreach now
-- **Warm Up First** — fit exists but missing a proof point; revisit in N months after X milestone
-- **No-Go** — material mandate mismatch; explain why and suggest what would need to change
+Table with columns **Dimension** | **Score** | **Rationale**. Score each of these dimensions: Sector Fit, Stage Fit, Check Size Fit, Thesis Alignment, Program/Network Value. Scores are out of 10. Be calibrated — a 5/10 with clear reasoning is more useful than an inflated 8/10.
+
+### Why It Works
+
+Bullet list of the strongest positive signals for pursuing this fund. Lead with concrete portfolio analogs (named companies + outcomes). Include narrative hooks, structural advantages, and timing factors that favor the startup right now.
+
+### Key Risks & Objections
+
+Numbered list of material risks and mandate mismatches. Where relevant, include specific math (dilution %, valuation impact, timing lock-in). Flag structural concerns (batch schedule, mandatory program overhead, check size constraints, portfolio conflicts). Be direct — omit risks that don't materially affect this specific startup.
+
+### Best Approach
+
+- **Intro strategy:** how to get a warm referral or bypass cold outreach (specific tactic for this fund)
+- **Lead with:** 3–4 specific bullets — what to put front and center in the application, pitch deck, or first meeting
+- **Avoid:** 1–2 things not to emphasize for this specific fund's current focus
+
+### Cold email
+Subject: [subject line]
+---
+[4-5 sentence email body. Open with a specific reference to their thesis or a recent portfolio company. State what 3Flux does in one sentence. Explain why 3Flux fits their mandate using the match signals found. End with a clear, low-friction ask such as "Would a 20-min call make sense?"]
+
+### LinkedIn message (≤150 chars, ready to send)
+[Reference one concrete thing — portfolio company, thesis, or recent post — and end with a soft ask]
+
+### Gaps / things to verify
+
+### Sources
+
+### Verdict
+
+Table with two columns — **Question** | **Answer**. Rows:
+- Should you pursue?
+- Stage fit verdict
+- Run a parallel raise?
+- Best-case outcome
+- Bottom line (one punchy sentence)
 
 ---
 
 ## Output Format
 
-- Use markdown headers and bullets throughout
-- Keep the full report under 800 words
+- Use markdown tables for Firm Snapshot, Key People, Fit Assessment, and Verdict
 - Cite sources inline where possible (e.g., "per their 2024 thesis post")
-- Do not pad — if a section has nothing meaningful, say so in one sentence
+- End with: `Email Subject: VC Match <fund-slug> - <fit-score>` 
+            `Suggested save filename: vcmatch-<fund-slug>.md`
