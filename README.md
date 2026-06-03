@@ -273,7 +273,7 @@ Pre-filter funds from your pipeline before committing to a full match analysis. 
 
 ### `/vcmatch` — Fund Fit Analysis
 
-Deep research on a single fund against your startup profile. Scores the match and identifies exactly how to approach them.
+Deep research on a single fund against your startup profile. Spawns 4 parallel domain research sub-agents, synthesizes the results into a structured report, and scores the match across 8 dimensions summing to /100.
 
 ```
 /vcmatch <VC Fund Name>
@@ -283,14 +283,27 @@ Deep research on a single fund against your startup profile. Scores the match an
 **Reads:** `STARTUP_PROFILE.md`  
 **Saves:** `vcmatch-<fund>.md`
 
+**How it works:** Four sub-agents run in parallel — Thesis & Mandate, Portfolio Intelligence, People & Network, and Deal & Process — each with domain-specific search queries. The main agent synthesizes all four returns and scores the fit.
+
 **Output sections:**
-1. Fund Overview — thesis, stage, sector, check size, key partners
-2. Mandate Alignment — line-by-line comparison table
-3. Fit Score — /100 with breakdown by sector, stage, team, traction, thesis
-4. Optimal Pitch Angle — which partner to target, verbatim opening hook, what to lead/avoid
-5. Red Flags — mandate mismatches, portfolio conflicts, thesis gaps
-6. Diligence Questions to Prepare — 5–8 fund-specific questions
-7. Recommended Action — Pursue / Warm Up First / No-Go with rationale
+1. Firm Snapshot — founded, model, key GPs, standard deal, fund size, notable portfolio
+2. Investment Thesis & Current Focus — table with Theme / Signal / Verbatim Quote
+3. Portfolio Pattern Analysis — what the last 24 months of investments reveal about actual deployment priorities
+4. Key People — partner roster with background, sector focus, and access dynamics
+5. Fit Assessment — 8-dimension score table summing to /100
+6. Why It Works — positive signals with named portfolio analogs
+7. Key Risks & Objections — material mismatches with specific math
+8. Deal Process Intel — decision timeline, diligence style, known pass triggers
+9. Best Approach — intro strategy, lead-with bullets, avoid list
+10. Warm Intro Path — named intermediaries and specific actions, ranked by likelihood
+11. Diligence Questions to Prepare — 5–8 fund-specific questions
+12. Cold Email — subject + 4-sentence body with fund-specific hook
+13. LinkedIn Message — ≤150 chars
+14. Gaps / Things to Verify
+15. Sources
+16. Verdict — table including Recommended Action
+
+**Fit Score thresholds:** 75–100 → Pursue · 50–74 → Warm Up First · 0–49 → No-Go
 
 Run `/vcmatch` before `/vcpartner`, `/vcintro`, `/vclp`, or `/vcprep`.
 
