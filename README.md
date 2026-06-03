@@ -29,7 +29,8 @@ Run commands in this order for a complete fundraising campaign:
 /vcperks <fund name>              # What do they offer beyond the check?
 
 # 5. Stress-test your pitch against the funds you're pursuing:
-/vcdevil
+/vcdevil                          # 10 lethal questions — know what to defend
+/vcangel                          # 10 strongest signals — know what to lead with
 
 # 6. For each fund with a vcmatch Pursue or Warm Up verdict:
 /vcpartner <fund> <partner name>
@@ -67,6 +68,7 @@ Run commands in this order for a complete fundraising campaign:
 | `vctrack.md` | Pipeline dashboard — status of all funds at a glance |
 | `vcraise.md` | Fundraising strategy |
 | `vcdevil.md` | Adversarial stress-test — 10 lethal questions |
+| `vcangel.md` | Champion's brief — 10 strongest signals to lead with |
 
 ---
 
@@ -457,6 +459,27 @@ Before you pitch anyone, get destroyed first. A cocky, arrogant VC partner who's
 - **What a real answer looks like** — the framework for a rebuttal that shuts him up
 
 Run this before any outreach. The questions you can't answer in 30 seconds are the gaps to close first.
+
+---
+
+### `/vcangel` — The Startup Champion
+
+The other side of `/vcdevil`. A seasoned VC partner who champions deals in the partner meeting surfaces the 10 strongest signals in your profile — not cheerleading, but pattern recognition. The things that make skeptics go quiet and interested.
+
+```
+/vcangel
+```
+
+**Reads:** `STARTUP_PROFILE.md`  
+**Saves:** `vcangel.md`
+
+**Output:** 10 insights derived from your actual profile — the specific assets most investors would overlook or underweight. Each insight includes:
+- A setup line in character (warm, perceptive, strategically excited)
+- The insight itself, phrased as the angel would say it in the partner meeting
+- **Why this wins the room** — the specific strength it names, with evidence from your profile
+- **How to amplify this** — a coaching prompt for making the point land harder
+
+Run this alongside `/vcdevil`. Together they give you full-spectrum pitch prep: know what to defend, know what to lead with.
 
 ---
 
