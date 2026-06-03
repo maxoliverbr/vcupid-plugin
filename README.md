@@ -2,7 +2,7 @@
 
 # VCupid Skills — AI Fundraising Toolkit for Founders
 
-A set of Skills that turn your startup profile into a full VC fundraising workflow: pipeline research, fund matching, partner profiling, outreach drafting, meeting prep, and strategy.
+A set of Skills that turn your startup profile into a full VC fundraising workflow: pipeline research, fund matching, partner profiling, outreach drafting, meeting prep, post-meeting debrief, term sheet analysis, and strategy.
 
 ---
 
@@ -38,6 +38,15 @@ Run commands in this order for a complete fundraising campaign:
 
 # 7. When a meeting is booked:
 /vcprep vcmatch-<fund>.md
+
+# 8. After the meeting:
+/vcdebrief vcmatch-<fund>.md        # signal read, follow-up email, next step
+
+# 9. When you receive a term sheet:
+/vcterm termsheet-<fund>.md         # clause analysis, score, negotiation priority list
+
+# Anytime — review your full pipeline:
+/vctrack
 ```
 
 **File naming convention:**
@@ -53,6 +62,9 @@ Run commands in this order for a complete fundraising campaign:
 | `vcintro-<fund>.md` | Outreach drafts |
 | `vclp-<fund>.md` | Fund-specific one-pager |
 | `vcprep-<fund>.md` | Meeting prep |
+| `vcdebrief-<fund>.md` | Post-meeting debrief — signals, follow-up email, next step |
+| `vcterm-<fund>.md` | Term sheet analysis — clause scores, negotiation priority list |
+| `vctrack.md` | Pipeline dashboard — status of all funds at a glance |
 | `vcraise.md` | Fundraising strategy |
 | `vcdevil.md` | Adversarial stress-test — 10 lethal questions |
 
@@ -113,6 +125,9 @@ This registers the local clone path so edits to skill files take effect immediat
 - **Run `/vcmatch` before spending time on outreach.** A 40/100 fit score is a no-go — don't write the email.
 - **Use Variant B (`/vcintro`) over cold email whenever a warm path exists.** A forwarded intro converts at 5–10x the rate of cold outreach.
 - **The vcprep is for rehearsal, not for the room.** Print it, rehearse it, then leave it behind — the meeting is a conversation, not a recital.
+- **Run `/vcdebrief` the same day as the meeting.** Memory fades fast and the follow-up email loses impact after 24 hours. Don't wait until the next morning.
+- **Share `/vcterm` output with your attorney, not instead of one.** The term sheet analysis tells you what to fight for — your lawyer tells you how to fight for it without blowing the deal.
+- **Run `/vctrack` before every weekly review.** If you're working 5+ funds in parallel, the pipeline table is the only way to see what's stale and what needs a nudge.
 - **Want to add or change a skill?** See [Contributing](#contributing) below.
 
 ---
@@ -429,6 +444,82 @@ Before you pitch anyone, get destroyed first. A cocky, arrogant VC partner who's
 - **What a real answer looks like** — the framework for a rebuttal that shuts him up
 
 Run this before any outreach. The questions you can't answer in 30 seconds are the gaps to close first.
+
+---
+
+### `/vcdebrief` — Post-Meeting Debrief
+
+Turn your raw meeting memory into a structured debrief. Produces a signal read, an open diligence queue, a send-ready follow-up email, and a clear recommended next step.
+
+```
+/vcdebrief <vcmatch-report.md>
+```
+
+**Example:** `/vcdebrief vcmatch-a16z.md`  
+**Reads:** `STARTUP_PROFILE.md` + vcmatch report (+ asks you for meeting notes)  
+**Saves:** `vcdebrief-<fund>.md`
+
+**Output sections:**
+1. Meeting Summary — attendees, duration, format
+2. Signal Read — green (interest), yellow (hesitation), red (pushback) signals from the meeting
+3. Diligence Prediction vs. Reality — which vcmatch questions came up, which didn't, what surprised you
+4. Open Diligence Queue — every item raised in the meeting with a draft answer and deadline
+5. Pitch Landing Assessment — what from the vcmatch angle resonated vs. missed
+6. Follow-Up Email — send-ready, subject line and body, references something specific from the meeting
+7. Recommended Next Step — one of: Request Second Meeting / Send Deck / Send Data Room / Give Space / Drop Fund
+8. Updated Fit Signal — revised read on interest level vs. the vcmatch prediction
+
+Run this within 24 hours of every meeting. The follow-up email degrades sharply after that.
+
+---
+
+### `/vcterm` — Term Sheet Analyzer
+
+Benchmark every clause in a VC term sheet against current market norms, flag founder-unfriendly terms, and produce a ranked negotiation priority list with suggested pushback language.
+
+```
+/vcterm <termsheet-file.md>
+```
+
+**Example:** `/vcterm termsheet-a16z.md`  
+**Reads:** `STARTUP_PROFILE.md` + term sheet file  
+**Saves:** `vcterm-<fund>.md`
+
+**Output sections:**
+1. Term Sheet at a Glance — instrument, amount, cap, discount, key dates
+2. Founder-Friendliness Score — /100 with breakdown (–15 per red flag, –5 per yellow flag)
+3. Clause Analysis Table — each term vs. market norm with 🟢🟡🔴 verdict
+4. Red Flag Deep Dives — real-world impact for each 🔴 clause
+5. Negotiation Priority List — ranked by founder harm, with suggested pushback language and likelihood of success
+6. Questions to Ask Before Signing — 5–8 diligence questions for the fund or your attorney
+
+**Verdict tiers:**
+- **85–100 — Founder-Friendly**: Standard or better. Sign with standard review.
+- **65–84 — Acceptable**: Negotiate the reds.
+- **45–64 — Investor-Favorable**: Push back on all reds, escalate yellows.
+- **0–44 — Aggressive**: Get a second legal opinion before proceeding.
+
+> ⚠️ This skill is informational only — it does not constitute legal advice. Share the output with your attorney before responding to the fund.
+
+---
+
+### `/vctrack` — Pipeline Dashboard
+
+Scan all vcupid output files in the current directory and generate a single status table showing every fund's stage, scores, and next recommended action.
+
+```
+/vctrack
+```
+
+No argument needed. Reads from the current working directory.  
+**Saves:** `vctrack.md`
+
+**Output:**
+- Summary counts (total, active, no-go, stale)
+- Pipeline table: Fund | Poser Score | Fit Score | Recommended Action | Stage Reached | Next Step
+- Urgent Actions list — funds with missing follow-through flagged with the specific command to run
+
+Run this any time to get a bird's-eye view of where your pipeline stands. Especially useful before investor update calls or weekly reviews.
 
 ---
 
