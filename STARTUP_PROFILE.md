@@ -7,11 +7,18 @@
 **Stage:** Seed
 **Founded:** 2025
 
+## Raison D’Etre
+The fundamental purpose of NovaLedger is to eliminate the administrative burden of healthcare providers to restore focus to patient care.
+
 ## One-Liner
 NovaLedger automates finance operations for multi-location healthcare clinics by reconciling payments, insurance deposits, and bank activity in real time.
 
 ## Problem
 Healthcare clinics lose hours every week matching card payments, ACH deposits, insurance remittances, refunds, and bank transactions across fragmented systems. Existing accounting tools are too generic, while healthcare RCM tools stop before cash reconciliation.
+
+## Target Customer
+**Primary buyer:** CFO, Controller, or Head of Revenue Cycle at healthcare groups with 5–100 locations.
+**Initial ICP:** Dental service organizations, outpatient specialty clinics, and behavioral health groups processing $10M–$250M in annual collections.
 
 ## Solution
 NovaLedger connects to practice management systems, payment processors, clearinghouses, and bank accounts to create an automated reconciliation workspace for healthcare finance teams.
@@ -22,11 +29,6 @@ Core capabilities:
 - Flag exceptions, missing payments, and refund issues
 - Export clean journal entries to QuickBooks, NetSuite, and Sage Intacct
 - Provide month-end close dashboards for CFOs and controllers
-
-## Target Customer
-**Primary buyer:** CFO, Controller, or Head of Revenue Cycle at healthcare groups with 5–100 locations.
-
-**Initial ICP:** Dental service organizations, outpatient specialty clinics, and behavioral health groups processing $10M–$250M in annual collections.
 
 ## Market
 Revenue cycle and back-office finance automation for U.S. healthcare providers. The initial wedge is payment reconciliation for multi-site provider groups, expanding into broader finance workflow automation.
@@ -66,6 +68,8 @@ NovaLedger is purpose-built for healthcare payment complexity and sits between r
 - **Maya Patel, CEO:** Former VP Finance at a 60-location specialty clinic group; led two ERP migrations and revenue cycle automation projects.
 - **Daniel Kim, CTO:** Former staff engineer at a payments infrastructure company; built ledger and reconciliation systems at scale.
 - **Elena Brooks, Head of Customer Success:** Former healthcare implementation lead at a vertical SaaS company.
+- Founders-Market Fit:  Our founding team combines deep healthcare financial operations experience.
+
 
 ## Fundraising
 **Round:** Seed
