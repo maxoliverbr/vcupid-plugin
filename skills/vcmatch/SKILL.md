@@ -1,12 +1,12 @@
 ---
 name: vcmatch
-description: "Match the active startup profile against a VC fund. Usage: /vcmatch <VC Fund Name>. Reads STARTUP_PROFILE.md, spawns 4 parallel domain research sub-agents, and produces a structured VC Match Report with 8-dimension fit scoring summing to /100, portfolio pattern analysis, deal process intel, and warm intro paths."
+description: "Match the active startup profile against a VC fund. Usage: /vcmatch <VC Fund Name> [profile-file.md]. Reads STARTUP_PROFILE.md by default (or the profile file if provided), spawns 4 parallel domain research sub-agents, and produces a structured VC Match Report with 8-dimension fit scoring summing to /100, portfolio pattern analysis, deal process intel, and warm intro paths."
 license: MIT
 compatibility: Requires Claude Code with WebSearch, WebFetch, and Agent. Internet connection required.
 allowed-tools: WebSearch WebFetch Read Write Agent
 metadata:
   author: 3Flux
-  version: "3.0"
+  version: "3.1"
   workflow-step: "4 — run after /vcposer scores 60+"
 ---
 
@@ -17,10 +17,16 @@ Match the active startup profile against a VC fund using 4 parallel domain resea
 ## Invocation
 
 ```
-/vcmatch <VC Fund Name>
+/vcmatch <VC Fund Name> [profile-file.md]
 ```
 
-Example: `/vcmatch a16z` or `/vcmatch Y Combinator`
+Argument order is flexible — if any argument ends in `.md`, treat it as the profile file; all other arguments form the fund name.
+
+Examples:
+- `/vcmatch a16z` → fund `a16z`, profile `STARTUP_PROFILE.md`
+- `/vcmatch Y Combinator` → fund `Y Combinator`, profile `STARTUP_PROFILE.md`
+- `/vcmatch a16z SALES_PROFILE.md` → fund `a16z`, profile `SALES_PROFILE.md`
+- `/vcmatch SALES_PROFILE.md Y Combinator` → fund `Y Combinator`, profile `SALES_PROFILE.md`
 
 ## Execution Steps
 
@@ -30,7 +36,13 @@ Execute these five steps in order.
 
 ### Step 1 — Load Startup Context
 
-Read `STARTUP_PROFILE.md` from the current working directory. Extract and hold in context:
+**Resolve the profile file:**
+- If the user passed an argument ending in `.md`, use that filename.
+- Otherwise, default to `STARTUP_PROFILE.md`.
+- If more than one `.md` argument is passed, stop and ask the user to pass a single profile file.
+- If no fund name remains after extracting the profile file, stop and ask for a fund name.
+
+Read the resolved profile file from the current working directory. Extract and hold in context:
 
 - Company name and one-liner
 - CEO name and key credentials (3–5 highlights)
@@ -47,7 +59,7 @@ Read `STARTUP_PROFILE.md` from the current working directory. Extract and hold i
 
 Derive the fund slug: lowercase the fund name, strip punctuation and spaces (`Y Combinator` → `y-combinator`, `a16z` → `a16z`).
 
-If `STARTUP_PROFILE.md` does not exist, stop and tell the user: "Create `STARTUP_PROFILE.md` first — all /vcmatch research is personalized to your startup profile."
+If the profile file does not exist, stop and tell the user: "Create `<profile-file>` first — all /vcmatch research is personalized to your startup profile." (Use the resolved filename in the message.)
 
 ---
 
