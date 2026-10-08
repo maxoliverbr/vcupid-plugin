@@ -1,8 +1,13 @@
 {
   "name": "vcupid",
+  "displayName": "VCupid",
+  "version": "1.0.0",
   "description": "AI fundraising toolkit: VC pipeline, fund matching, partner profiling, outreach, and pitch prep",
   "author": {
     "name": "3Flux",
     "email": "max.oliver@3flux.com"
-  }
+  },
+  "homepage": "https://github.com/maxoliverbr/vcupid-plugin",
+  "repository": "https://github.com/maxoliverbr/vcupid-plugin",
+  "license": "MIT"
 }
