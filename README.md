@@ -577,7 +577,6 @@ skills-ref validate skills/vcmatch/
 | `assets/` | Shared assets (logo, `STARTUP_PROFILE_TEMPLATE.md`) |
 | `.claude-plugin/plugin.json` | Plugin metadata for Claude Code |
 | `.claude-plugin/marketplace.json` | Lets Claude Code install the plugin from this repo |
-| `.claude-plugin/icon.png` | Directory listing icon |
 
 Claude Code discovers skills from every `skills/*/SKILL.md` file. There is no separate manifest to update when you add a folder.
 
