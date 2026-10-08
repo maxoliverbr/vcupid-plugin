@@ -74,49 +74,31 @@ Run commands in this order for a complete fundraising campaign:
 
 ## Installation
 
-These commands are available as the `vcupid` Claude Code plugin. Install with a single command — works in Claude Code web or CLI:
+VCupid is a Claude Code plugin made only of skills (Markdown prompt files). It runs no scripts, hooks, or MCP servers, and it doesn't send your data anywhere.
+
+**From the Claude plugin directory:** add VCupid from [claude.ai/directory](https://claude.ai/directory). It is then available on claude.ai, in Cowork, and in Claude Code.
+
+**From this repository's marketplace** (Claude Code):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/maxoliverbr/vcupid-plugin/main/install.sh | bash
+claude plugin marketplace add maxoliverbr/vcupid-plugin
+claude plugin install vcupid@vcupid
 ```
 
-The script clones the plugin to `~/.claude/plugins/vcupid/`, registers it in `~/.claude/plugins/installed_plugins.json`, and enables it in `~/.claude/settings.json`. It is idempotent — safe to re-run to update.
+To update later: `claude plugin update vcupid@vcupid`.
 
-**Restart Claude Code.** All `/vc*` commands will be available in any directory that contains a `STARTUP_PROFILE.md`.
+All `/vc*` commands work in any directory that contains a `STARTUP_PROFILE.md`.
 
 <details>
 <summary>Local development install</summary>
 
-If you've cloned the repo locally, you can install from the clone directly:
+From a clone of the repo, load the plugin for one session:
 
 ```bash
-cd ~/dev/vcupid-plugin && bash install.sh
+claude --plugin-dir ~/dev/vcupid-plugin
 ```
 
-This registers the local clone path so edits to skill files take effect immediately without re-running the installer.
-</details>
-
-<details>
-<summary>Manual installation</summary>
-
-**Register in `~/.claude/plugins/installed_plugins.json`:**
-```json
-"vcupid@local": [{
-  "scope": "user",
-  "installPath": "/home/<you>/dev/vcupid",
-  "version": "1.0.0",
-  "installedAt": "<ISO timestamp>",
-  "lastUpdated": "<ISO timestamp>"
-}]
-```
-
-**Enable in `~/.claude/settings.json`:**
-```json
-"enabledPlugins": {
-  "vcupid@local": true
-}
-```
-
+Edits to skill files are picked up the next time a session starts, or right away with `/reload-plugins`.
 </details>
 
 ---
@@ -574,19 +556,17 @@ We seek help testing the skills in other tools (Opencode, Codex, Cursor...) and 
    git clone https://github.com/<your-username>/vcupid-plugin.git
    cd vcupid-plugin
    ```
-2. Install from your local clone (registers this path with Claude Code):
+2. Start Claude Code with the plugin loaded from your clone:
    ```bash
-   bash install.sh
+   claude --plugin-dir .
    ```
-3. **Restart Claude Code.** Skill changes in `skills/` are picked up from the registered install path; you do not need to re-run the installer after every edit.
+3. Skill changes in `skills/` take effect on the next session start, or right away with `/reload-plugins`.
 
 To validate skill structure (optional, requires [skills-ref](https://github.com/agentskills/skills-ref)):
 
 ```bash
 skills-ref validate skills/vcmatch/
 ```
-
-`install.sh` runs the same validation automatically when `skills-ref` is on your `PATH`.
 
 ### Repository layout
 
@@ -596,7 +576,8 @@ skills-ref validate skills/vcmatch/
 | `skills/<name>/references/` | Optional templates (e.g. `output-format.md`) linked from the skill |
 | `assets/` | Shared assets (logo, `STARTUP_PROFILE_TEMPLATE.md`) |
 | `.claude-plugin/plugin.json` | Plugin metadata for Claude Code |
-| `install.sh` | Registers the plugin in `~/.claude/plugins/` and enables it in settings |
+| `.claude-plugin/marketplace.json` | Lets Claude Code install the plugin from this repo |
+| `.claude-plugin/icon.png` | Directory listing icon |
 
 Claude Code discovers skills from every `skills/*/SKILL.md` file. There is no separate manifest to update when you add a folder.
 

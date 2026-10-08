@@ -1,0 +1,8 @@
+{
+  "name": "vcupid",
+  "description": "VCupid: AI fundraising toolkit for founders",
+  "owner": { "name": "3Flux" },
+  "plugins": [
+    { "name": "vcupid", "source": "./" }
+  ]
+}
