@@ -74,7 +74,9 @@ Run commands in this order for a complete fundraising campaign:
 
 ## Installation
 
-VCupid is a Claude Code plugin made only of skills (Markdown prompt files). It runs no scripts, hooks, or MCP servers, and it doesn't send your data anywhere.
+VCupid is a Claude Code plugin made only of skills (Markdown prompt files). It ships no scripts, hooks, or MCP servers.
+
+**Privacy:** VCupid has no server of its own and collects nothing. Your `STARTUP_PROFILE.md` and every generated report stay as local files in your working directory, and are processed by Claude under your existing Claude account terms. `/vclist`, `/vcmatch`, `/vcpartner`, `/vcperks`, `/vcposer` and `/vcterm` use Claude's built-in web search and web fetch to research public information about funds, partners and market terms; the search queries can include details such as your sector, stage, location or a fund's name. `/vcraise` and `/vctrack` only list files in your working directory. Nothing else leaves your machine.
 
 **From the Claude plugin directory:** add VCupid from [claude.ai/directory](https://claude.ai/directory). It is then available on claude.ai, in Cowork, and in Claude Code.
 
