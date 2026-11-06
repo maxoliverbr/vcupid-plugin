@@ -26,6 +26,7 @@ Run commands in this order for a complete fundraising campaign:
 
 # 4. For each fund that passes vcposer (score 60+):
 /vcmatch <fund name>              # Does their mandate fit your startup?
+/vcmatch <fund name> <profile.md> # Optional: use an alternate profile file
 /vcperks <fund name>              # What do they offer beyond the check?
 
 # 5. Stress-test your pitch against the funds you're pursuing:
@@ -124,7 +125,7 @@ This registers the local clone path so edits to skill files take effect immediat
 ## Tips
 
 - **Keep `STARTUP_PROFILE.md` current.** Every new traction milestone (signed LOI, new partnership, first revenue) changes what funds you can approach and what you can say. Update it and re-run `/vcraise` monthly.
-- **Run `/vcmatch` before spending time on outreach.** A 40/100 fit score is a no-go — don't write the email.
+- **Run `/vcposer` before `/vcmatch`.** Vcmatch auto-checks your vcposer report and stops on scores below 40. A fit score below 50 is a no-go for outreach — don't write the email.
 - **Use Variant B (`/vcintro`) over cold email whenever a warm path exists.** A forwarded intro converts at 5–10x the rate of cold outreach.
 - **The vcprep is for rehearsal, not for the room.** Print it, rehearse it, then leave it behind — the meeting is a conversation, not a recital.
 - **Run `/vcdebrief` the same day as the meeting.** Memory fades fast and the follow-up email loses impact after 24 hours. Don't wait until the next morning.
@@ -137,7 +138,7 @@ This registers the local clone path so edits to skill files take effect immediat
 
 ## Prerequisites
 
-All commands read `STARTUP_PROFILE.md` from your current working directory. **Create this file before running any command.**
+All commands read `STARTUP_PROFILE.md` from your current working directory. **Create this file before running any command.** `/vcmatch` also accepts an optional profile file argument (e.g. `/vcmatch a16z SALES_PROFILE.md`) if you maintain multiple profiles.
 
 ### Setting Up `STARTUP_PROFILE.md`
 
@@ -278,14 +279,39 @@ Pre-filter funds from your pipeline before committing to a full match analysis. 
 Deep research on a single fund against your startup profile. Spawns 4 parallel domain research sub-agents, synthesizes the results into a structured report, and scores the match across 8 dimensions summing to /100.
 
 ```
-/vcmatch <VC Fund Name>
+/vcmatch <VC Fund Name> [profile-file.md]
 ```
 
-**Example:** `/vcmatch a16z` or `/vcmatch "Lowercarbon Capital"`  
-**Reads:** `STARTUP_PROFILE.md`  
+Argument order is flexible — if any argument ends in `.md`, it is treated as the profile file; all other arguments form the fund name.
+
+**Examples:**
+- `/vcmatch a16z` → fund `a16z`, profile `STARTUP_PROFILE.md`
+- `/vcmatch "Lowercarbon Capital"` → fund `Lowercarbon Capital`, profile `STARTUP_PROFILE.md`
+- `/vcmatch a16z SALES_PROFILE.md` → fund `a16z`, profile `SALES_PROFILE.md`
+- `/vcmatch SALES_PROFILE.md Y Combinator` → fund `Y Combinator`, profile `SALES_PROFILE.md`
+
+**Reads:** `STARTUP_PROFILE.md` by default, or the profile file you pass  
 **Saves:** `vcmatch-<fund>.md`
 
-**How it works:** Four sub-agents run in parallel — Thesis & Mandate, Portfolio Intelligence, People & Network, and Deal & Process — each with domain-specific search queries. The main agent synthesizes all four returns and scores the fit.
+**How it works (5 steps):**
+1. **Load startup context** — reads the resolved profile file and extracts company, team, traction, and raise details
+2. **Poser pre-check** — looks for `vcposer-<fund>.md` in the current directory. Stops if score is below 40; warns if 40–59; proceeds normally at 60+ or if no vcposer file exists
+3. **Parallel research** — four sub-agents run simultaneously: Thesis & Mandate, Portfolio Intelligence, People & Network, and Deal & Process
+4. **Synthesize and score** — reconciles sub-agent returns and scores 8 fit dimensions (see table below)
+5. **Write report** — saves a 16-section report with `Fit Score:` and `Recommended Action:` fields downstream skills parse by exact match
+
+**8-dimension fit scoring:**
+
+| Dimension | Max Points | Evidence Source |
+|-----------|-----------|----------------|
+| Sector Fit | 20 | Thesis: sector clusters, de facto focus |
+| Stage Fit | 20 | Thesis stage focus + portfolio entry stage |
+| Thesis Alignment | 20 | Stated mandate, de facto focus, thesis quotes |
+| Team-Fund Fit | 10 | People: team-fund fit signals |
+| Traction Signal Fit | 10 | Portfolio: traction bar |
+| Check Size / Terms Fit | 10 | Deal: check size reality, instrument preference |
+| Geographic Fit | 5 | Thesis geography + deal sub-agent |
+| Network / Warm Path | 5 | People: warm intro paths, referral overlap |
 
 **Output sections:**
 1. Firm Snapshot — founded, model, key GPs, standard deal, fund size, notable portfolio
@@ -307,7 +333,7 @@ Deep research on a single fund against your startup profile. Spawns 4 parallel d
 
 **Fit Score thresholds:** 75–100 → Pursue · 50–74 → Warm Up First · 0–49 → No-Go
 
-Run `/vcmatch` before `/vcpartner`, `/vcintro`, `/vclp`, or `/vcprep`.
+Run `/vcposer` first (score 60+), then `/vcmatch` before `/vcpartner`, `/vcintro`, `/vclp`, or `/vcprep`.
 
 ---
 
