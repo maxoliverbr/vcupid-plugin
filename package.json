@@ -1,0 +1,9 @@
+{
+  "name": "@maxoliverbr/vcupid",
+  "version": "1.0.0",
+  "description": "Claude Code plugin — AI fundraising toolkit: VC pipeline, fund matching, partner profiling, outreach, pitch prep, debriefs, and term sheet analysis",
+  "license": "MIT",
+  "repository": "https://github.com/maxoliverbr/vcupid-plugin",
+  "files": [".claude-plugin", "skills", "assets", "README.md", "LICENSE"],
+  "publishConfig": { "registry": "https://npm.pkg.github.com" }
+}
