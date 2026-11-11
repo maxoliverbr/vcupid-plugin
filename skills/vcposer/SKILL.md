@@ -3,7 +3,7 @@ name: vcposer
 description: "Detect VC funds that are posers: zombie funds, stage drifters, thesis cosplayers, and tourist investors who take meetings but don't write checks. Usage: /vcposer <VC Fund Name>. Runs 8 evidence-based checks, scores a Poser Score (0–100), and recommends whether to pursue. Saves to vcposer-<fund>.md."
 license: MIT
 compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
-allowed-tools: WebSearch WebFetch Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

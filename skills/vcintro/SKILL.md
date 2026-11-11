@@ -2,7 +2,7 @@
 name: vcintro
 description: "Draft VC outreach from a vcmatch report. Usage: /vcintro <vcmatch-report.md>. Reads STARTUP_PROFILE.md and the vcmatch report, then produces three outreach variants: cold email, warm intro request, and LinkedIn DM. Saves to vcintro-<fund>.md."
 license: MIT
-allowed-tools: Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

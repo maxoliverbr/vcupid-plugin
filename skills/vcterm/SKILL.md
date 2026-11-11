@@ -3,7 +3,7 @@ name: vcterm
 description: "Analyze a VC term sheet against market norms, flag founder-unfriendly clauses, score founder-friendliness, and produce a ranked negotiation priority list. Usage: /vcterm <termsheet-file.md>. Reads STARTUP_PROFILE.md. Saves to vcterm-<fund>.md."
 license: MIT
 compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
-allowed-tools: WebSearch WebFetch Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

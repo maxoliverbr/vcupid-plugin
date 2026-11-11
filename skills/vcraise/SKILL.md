@@ -2,7 +2,7 @@
 name: vcraise
 description: "Generate a fundraising strategy memo from the active startup profile and any existing vcmatch/vclist files. Usage: /vcraise. Reads STARTUP_PROFILE.md and any vcmatch-*.md or vclist.md files in the current directory, then produces a full fundraising strategy: sequencing, milestones, timeline, and this week's next actions. Saves to vcraise.md."
 license: MIT
-allowed-tools: Read Write Bash(find:*) Bash(ls:*)
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

@@ -3,7 +3,7 @@ name: vcperks
 description: "Research the full value a VC fund delivers beyond the check — credits, services, brand signal, strategic expertise, media amplification, policy access, and follow-on capital pathway — scored by relevance to the active startup. Usage: /vcperks <VC Fund Name>. Saves to vcperks-<fund>.md."
 license: MIT
 compatibility: Requires Claude Code with WebSearch and WebFetch. Internet connection required.
-allowed-tools: WebSearch WebFetch Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

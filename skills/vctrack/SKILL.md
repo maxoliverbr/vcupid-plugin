@@ -2,7 +2,7 @@
 name: vctrack
 description: "Scan all vc*.md output files and generate a pipeline status dashboard. Usage: /vctrack. Reads vcmatch/vcposer/vcintro/vcprep/vcdebrief files in the current directory. Saves to vctrack.md."
 license: MIT
-allowed-tools: Read Write Bash(find:*)
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

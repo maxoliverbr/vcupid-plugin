@@ -3,7 +3,7 @@ name: vcmatch
 description: "Match the active startup profile against a VC fund. Usage: /vcmatch <VC Fund Name> [profile-file.md]. Reads STARTUP_PROFILE.md by default (or the profile file if provided), spawns 4 parallel domain research sub-agents, and produces a structured VC Match Report with 8-dimension fit scoring summing to /100, portfolio pattern analysis, deal process intel, and warm intro paths."
 license: MIT
 compatibility: Requires Claude Code with WebSearch, WebFetch, and Agent. Internet connection required.
-allowed-tools: WebSearch WebFetch Read Write Agent
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "3.1"
