@@ -2,7 +2,7 @@
 name: vcdevil
 description: "Stress-test your startup with the 10 hardest VC questions. Usage: /vcdevil. Reads STARTUP_PROFILE.md and produces a brutal adversarial interrogation: each question, why it's lethal, and a rebuttal framework. Saves to vcdevil.md."
 license: MIT
-allowed-tools: Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

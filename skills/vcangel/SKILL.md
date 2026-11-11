@@ -2,7 +2,7 @@
 name: vcangel
 description: "Surface the 10 strongest signals that would make a champion VC go to bat for your startup. Usage: /vcangel. Reads STARTUP_PROFILE.md and produces an enthusiastic champion's brief: each signal, why it wins the room, and how to amplify it. Saves to vcangel.md."
 license: MIT
-allowed-tools: Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"

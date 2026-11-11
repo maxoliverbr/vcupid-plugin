@@ -2,7 +2,7 @@
 name: vcdebrief
 description: "Debrief a VC meeting and produce a follow-up email, open diligence queue, and next-step recommendation. Usage: /vcdebrief <vcmatch-report.md>. Reads STARTUP_PROFILE.md and the vcmatch report. Saves to vcdebrief-<fund>.md."
 license: MIT
-allowed-tools: Read Write
+allowed-tools: Read
 metadata:
   author: 3Flux
   version: "1.0"
