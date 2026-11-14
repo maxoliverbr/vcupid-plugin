@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VCupid — AI Fundraising Toolkit for Founders</title>
+<meta name="description" content="Turn your startup profile into a full VC fundraising workflow: fund matching, outreach, pitch prep, term sheet analysis. A Claude plugin.">
+<meta property="og:title" content="VCupid — AI Fundraising Toolkit">
+<meta property="og:description" content="smarter outreach. better pitches. more yes.">
+<meta property="og:image" content="vcupid-logo.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💘</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050805;--panel:#0a110a;--g:#4cd137;--p:#ff4d94;--c:#2ee6f0;--t:#d8f5d0;--dim:#7a9a74}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--t);font:16px/1.6 "JetBrains Mono",ui-monospace,monospace;
+ background-image:radial-gradient(ellipse at top,#0f2a0f55,transparent 60%)}
+a{color:var(--c)}
+.w{max-width:1040px;margin:0 auto;padding:0 16px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:14px}
+nav a{color:var(--dim);text-decoration:none;margin-left:20px}nav a:hover{color:var(--g)}
+.logo{font-family:"Press Start 2P",monospace;color:var(--g);font-size:14px;margin:0}
+.logo b{color:var(--p)}
+.hero{text-align:center;padding:48px 0 32px}
+h1{font-family:"Press Start 2P",monospace;font-size:clamp(28px,7vw,64px);color:var(--g);margin:0 0 24px;text-shadow:0 0 24px #4cd13766;line-height:1.2}
+.sub{font-size:clamp(16px,2.4vw,22px);color:var(--c);margin:0 auto 12px;max-width:640px}
+.tag{color:var(--p)}
+.cur::after{content:"▋";animation:b 1s steps(1) infinite;color:var(--g)}
+@keyframes b{50%{opacity:0}}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:32px 0}
+.btn{padding:12px 22px;border:1px solid var(--g);color:var(--g);text-decoration:none;font-weight:700;border-radius:4px;transition:.15s}
+.btn:hover{background:var(--g);color:#000;box-shadow:0 0 20px #4cd13788}
+.btn.p{border-color:var(--p);color:var(--p)}.btn.p:hover{background:var(--p);color:#000;box-shadow:0 0 20px #ff4d9488}
+.term{background:var(--panel);border:1px solid #1d3a1d;border-radius:8px;max-width:640px;margin:0 auto;text-align:left;overflow:hidden;box-shadow:0 0 40px #4cd13722}
+.term .bar{background:#0f1f0f;padding:8px 14px;font-size:12px;color:var(--dim);display:flex;gap:6px;align-items:center}
+.term .bar i{width:10px;height:10px;border-radius:50%;background:var(--p);display:inline-block}
+.term .bar i:nth-child(2){background:#f5c542}.term .bar i:nth-child(3){background:var(--g)}
+.term pre{margin:0;padding:16px;font-size:14px;overflow-x:auto;color:var(--t)}
+.term .k{color:var(--g)}.term .m{color:var(--dim)}.term .h{color:var(--p)}
+section{padding:56px 0}
+h2{font-family:"Press Start 2P",monospace;font-size:clamp(14px,3vw,20px);color:var(--c);margin:0 0 32px;line-height:1.5}
+h2::before{content:"> ";color:var(--p)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid #1d3a1d;border-radius:6px;padding:18px;transition:.15s}
+.card:hover{border-color:var(--g);transform:translateY(-2px)}
+.card code{color:var(--g);font-weight:700;font-size:17px}
+.card p{margin:6px 0 0;color:var(--dim);font-size:14px}
+.steps{counter-reset:s;list-style:none;padding:0;display:grid;gap:12px}
+.steps li{counter-increment:s;padding:14px 16px 14px 56px;position:relative;background:var(--panel);border-left:3px solid var(--p);border-radius:4px}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:12px;font-family:"Press Start 2P",monospace;font-size:14px;color:var(--p)}
+.steps code{color:var(--g)}
+.install{background:var(--panel);border:1px dashed var(--c);border-radius:8px;padding:20px}
+.install pre{margin:0;overflow-x:auto;color:var(--g);font-size:15px}
+.priv{border:1px solid var(--p);border-radius:8px;padding:20px;color:var(--dim);background:#ff4d9408}
+.priv b{color:var(--p)}
+footer{padding:40px 0;text-align:center;color:var(--dim);font-size:14px;border-top:1px dashed #1d3a1d}
+footer .h{color:var(--p)}
+@media(prefers-reduced-motion:reduce){.cur::after{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="w">
+<nav><p class="logo">V<b>♥</b>Cupid</p><div><a href="#commands">commands</a><a href="#workflow">workflow</a><a href="#install">install</a><a href="https://github.com/maxoliverbr/vcupid-plugin">github</a></div></nav>
+
+<header class="hero">
+ <h1>VCupid</h1>
+ <p class="sub">AI Fundraising Toolkit for Founders</p>
+ <p class="sub tag">smarter outreach. better pitches. more yes.<span class="cur"></span></p>
+ <div class="cta"><a class="btn" href="#install">Install the plugin</a><a class="btn p" href="https://github.com/maxoliverbr/vcupid-plugin">★ View on GitHub</a></div>
+ <div class="term" aria-label="Example session">
+  <div class="bar"><i></i><i></i><i></i>&nbsp;vcupid@founder:~$</div>
+<pre><span class="k">$</span> /vcposer Acme Ventures
+<span class="m">  Poser Score: 12/100 — active, writes checks ✓</span>
+<span class="k">$</span> /vcmatch Acme Ventures
+<span class="m">  Fit: 84/100 — verdict: <span class="h">Pursue</span></span>
+<span class="k">$</span> /vcintro vcmatch-acme-ventures.md
+<span class="m">  3 drafts ready: cold · warm intro · LinkedIn DM</span></pre>
+ </div>
+</header>
+
+<section id="commands">
+ <h2>14 commands, one workflow</h2>
+ <div class="grid">
+  <div class="card"><code>/vcraise</code><p>Fundraising strategy memo: sequencing, milestones, this week's actions.</p></div>
+  <div class="card"><code>/vclist</code><p>Tiered list of 15–20 funds ranked by fit with contact angles.</p></div>
+  <div class="card"><code>/vcposer</code><p>Spot zombie funds and tourist investors before you waste a meeting.</p></div>
+  <div class="card"><code>/vcmatch</code><p>8-dimension fit score, portfolio patterns, deal process, warm intro paths.</p></div>
+  <div class="card"><code>/vcperks</code><p>Value beyond the check: credits, brand, expertise, follow-on capital.</p></div>
+  <div class="card"><code>/vcpartner</code><p>Deep profile on a partner with conversation starters.</p></div>
+  <div class="card"><code>/vcintro</code><p>Cold email, warm intro request and LinkedIn DM, in the fund's language.</p></div>
+  <div class="card"><code>/vclp</code><p>Fund-specific one-pager framed around their thesis.</p></div>
+  <div class="card"><code>/vcdevil</code><p>The 10 hardest VC questions, with rebuttal frameworks.</p></div>
+  <div class="card"><code>/vcangel</code><p>Your 10 strongest signals: know what to lead with.</p></div>
+  <div class="card"><code>/vcprep</code><p>Timed 15-minute pitch plan with preemptive diligence answers.</p></div>
+  <div class="card"><code>/vcdebrief</code><p>Signal read, follow-up email and next step, same day.</p></div>
+  <div class="card"><code>/vcterm</code><p>Term sheet clause analysis and ranked negotiation priorities.</p></div>
+  <div class="card"><code>/vctrack</code><p>Pipeline dashboard across every fund you're working.</p></div>
+ </div>
+</section>
+
+<section id="workflow">
+ <h2>From profile to term sheet</h2>
+ <ol class="steps">
+  <li>Write your <code>STARTUP_PROFILE.md</code>. Detail in, specificity out.</li>
+  <li><code>/vcraise</code> + <code>/vclist</code> to build strategy and a target list.</li>
+  <li><code>/vcposer</code> then <code>/vcmatch</code> on each fund. Drop the posers.</li>
+  <li><code>/vcpartner</code>, <code>/vcintro</code>, <code>/vclp</code> to reach out.</li>
+  <li><code>/vcprep</code> before the meeting, <code>/vcdebrief</code> after.</li>
+  <li><code>/vcterm</code> when the term sheet lands. Then call your lawyer.</li>
+ </ol>
+</section>
+
+<section id="install">
+ <h2>Install in 30 seconds</h2>
+ <div class="install"><pre>claude plugin marketplace add maxoliverbr/vcupid-plugin
+claude plugin install vcupid@vcupid</pre></div>
+ <p>Or add it from the <a href="https://claude.ai/directory">Claude plugin directory</a>. Works on claude.ai, Cowork and Claude Code.</p>
+</section>
+
+<section>
+ <div class="priv"><b>Privacy first.</b> VCupid is just Markdown skills: no server, no scripts, no telemetry. Your profile and reports stay in your working directory.</div>
+</section>
+
+<footer>Made with <span class="h">&lt;3</span> for founders, by founders · MIT · <a href="https://github.com/maxoliverbr/vcupid-plugin">GitHub</a></footer>
+</div>
+</body>
+</html>
